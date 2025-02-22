@@ -85,13 +85,16 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setStretch(0, 2)
         self.horizontalLayout.setStretch(1, 5)
         MainWindow.setCentralWidget(self.centralwidget)
-
+        self.findButton.setText('Искать')
+        self.clearButton.setText('Сброс')
+        self.findButton.clicked.connect(self.show_map)
+        self.clearButton.clicked.connect(self.clear)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Igor\'s карты"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Maps API. Часть №1"))
         self.darkThemeButton.setText(_translate("MainWindow", "Темная"))
         self.lightThemeButton.setText(_translate("MainWindow", "Светлая"))
         self.mapTypeComboBox.setItemText(0, _translate("MainWindow", "Базовая карта"))
