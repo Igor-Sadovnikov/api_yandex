@@ -33,13 +33,13 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                     sp = toponym_coodrinates.split(' ')
                     sp.reverse()
                     self.current_coord = sp.copy()
-                    self.camera = list(map(float, sp))
+                    if self.camera[0] == 0 and self.camera[1] == 0:
+                        self.camera = list(map(float, sp))
                 else:
                     print('Неверный запрос')
         server_address = 'http://static-maps.yandex.ru/1.x/?'
         ll_spn = f'll={str(self.camera[1])},{str(self.camera[0])}&spn={str(self.spn)},{str(self.spn)}'
         map_request = f"{server_address}{ll_spn}&pt={str(self.current_coord[1])},{str(self.current_coord[0])}&l=map"
-        print(map_request)
         response = requests.get(map_request)
         if not response:
             print("Ошибка выполнения запроса:")
@@ -66,22 +66,19 @@ class MyWidget(QMainWindow, Ui_MainWindow):
     
     def keyPressEvent(self, event):
         if event.key() in [Qt.Key.Key_PageUp, Qt.Key.Key_PageDown, Qt.Key.Key_Up,  Qt.Key.Key_Down, Qt.Key.Key_Left,  Qt.Key.Key_Right]:
+            k = 0.1
             if event.key() == Qt.Key.Key_PageUp:
                 self.spn /= 2
             elif event.key() == Qt.Key.Key_PageDown:
                 self.spn = min(64, self.spn * 2)
             elif event.key() == Qt.Key.Key_Up:
-                print(1)
-                self.camera[0] += 100 * self.spn
+                self.camera[0] += k * self.spn
             elif event.key() == Qt.Key.Key_Down:
-                print(1)
-                self.camera[0] -= 100 * self.spn
+                self.camera[0] -= k * self.spn
             elif event.key() == Qt.Key.Key_Left:
-                print(1)
-                self.camera[1] -= 100 * self.spn
+                self.camera[1] -= k * self.spn
             elif event.key() == Qt.Key.Key_Right:
-                print(1)
-                self.camera[1] += 100 * self.spn
+                self.camera[1] += k * self.spn
             self.show_map()
 
 
