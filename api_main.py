@@ -12,27 +12,33 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.spn = 0.002
-        
+        self.camera = [0.0, 0.0]
+        self.current_coord = [0.0, 0.0]
+
     def show_map(self):
         address = self.lineEdit.text()
-        sp = re.findall(r"\d*\.\d*", address)
-        if len(sp) != 2:
-            api_key = "8013b162-6b42-4997-9691-77b7074026e0"
-            server_address = 'http://geocode-maps.yandex.ru/1.x/?'
-            geocoder_request = f'{server_address}apikey={api_key}&geocode={address}&format=json'
-            response = requests.get(geocoder_request)
-            if response:
-                json_response = response.json()
-                toponym = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]
-                toponym_coodrinates = toponym["Point"]["pos"]
-                sp = toponym_coodrinates.split(' ')
-                sp.reverse()
-            else:
-                print('Неверный запрос')
-                sys.exit(0)
+
+        if len(address) != 0:
+            sp = re.findall(r"\d*\.\d*", address)
+            if len(sp) != 2:
+                api_key = "8013b162-6b42-4997-9691-77b7074026e0"
+                server_address = 'http://geocode-maps.yandex.ru/1.x/?'
+                geocoder_request = f'{server_address}apikey={api_key}&geocode={address}&format=json'
+                print(geocoder_request)
+                response = requests.get(geocoder_request)
+                if response:
+                    json_response = response.json()
+                    toponym = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]
+                    toponym_coodrinates = toponym["Point"]["pos"]
+                    sp = toponym_coodrinates.split(' ')
+                    sp.reverse()
+                    self.current_coord = sp.copy()
+                    self.camera = list(map(float, sp))
+                else:
+                    print('Неверный запрос')
         server_address = 'http://static-maps.yandex.ru/1.x/?'
-        ll_spn = f'll={str(sp[1])},{str(sp[0])}&spn={str(self.spn)},{str(self.spn)}'
-        map_request = f"{server_address}{ll_spn}&pt={str(sp[1])},{str(sp[0])}&l=map"
+        ll_spn = f'll={str(self.camera[1])},{str(self.camera[0])}&spn={str(self.spn)},{str(self.spn)}'
+        map_request = f"{server_address}{ll_spn}&pt={str(self.current_coord[1])},{str(self.current_coord[0])}&l=map"
         print(map_request)
         response = requests.get(map_request)
         if not response:
@@ -50,17 +56,32 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.lineEdit.clear()
         self.label.clear()
         self.spn = 0.002
+        self.camera = [0.0, 0.0]
+        self.current_coord = [0.0, 0.0]
     
     def find(self):
         self.spn = 0.002
         self.show_map()
+        self.setFocus()
     
     def keyPressEvent(self, event):
-        if event.key() in [Qt.Key.Key_PageUp, Qt.Key.Key_PageDown]:
+        if event.key() in [Qt.Key.Key_PageUp, Qt.Key.Key_PageDown, Qt.Key.Key_Up,  Qt.Key.Key_Down, Qt.Key.Key_Left,  Qt.Key.Key_Right]:
             if event.key() == Qt.Key.Key_PageUp:
                 self.spn /= 2
             elif event.key() == Qt.Key.Key_PageDown:
                 self.spn = min(64, self.spn * 2)
+            elif event.key() == Qt.Key.Key_Up:
+                print(1)
+                self.camera[0] += 100 * self.spn
+            elif event.key() == Qt.Key.Key_Down:
+                print(1)
+                self.camera[0] -= 100 * self.spn
+            elif event.key() == Qt.Key.Key_Left:
+                print(1)
+                self.camera[1] -= 100 * self.spn
+            elif event.key() == Qt.Key.Key_Right:
+                print(1)
+                self.camera[1] += 100 * self.spn
             self.show_map()
 
 
