@@ -87,7 +87,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.findButton.setText('Искать')
         self.clearButton.setText('Сброс')
-        self.findButton.clicked.connect(self.show_map)
+        self.findButton.clicked.connect(self.find)
         self.clearButton.clicked.connect(self.clear)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
