@@ -81,13 +81,9 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                 k = 0.1
                 match event.key():
                     case Qt.Key.Key_Up:
-                        self.camera[0] += k * self.spn
-                        if self.camera[0] >= 85:
-                            self.camera[0] = -85 + (self.camera[0] - 85)
+                        self.camera[0] = min(85, self.camera[0] + k * self.spn)
                     case Qt.Key.Key_Down:
-                        self.camera[0] -= k * self.spn
-                        if self.camera[0] <= -85:
-                            self.camera[0] = 170 + self.camera[0]
+                        self.camera[0] = max(-85, self.camera[0] - k * self.spn)
                     case Qt.Key.Key_Left:
                         self.camera[1] -= 2 * k * self.spn
                         if self.camera[1] <= -180:
@@ -96,7 +92,6 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                         self.camera[1] += 2 * k * self.spn
                         if self.camera[1] >= 180:
                             self.camera[1] = -180 + (self.camera[1] - 180)
-                print(self.camera)
                 self.show_map()
 
     def resizeEvent(self, event):
