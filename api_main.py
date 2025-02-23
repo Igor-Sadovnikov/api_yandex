@@ -30,10 +30,10 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             else:
                 print('Неверный запрос')
                 sys.exit(0)
-        server_address = 'https://static-maps.yandex.ru/v1?'
-        ll_spn = f'll={sp[1]},{sp[0]}&spn={self.spn},{self.spn}'
-        api_key = 'f3a0fe3a-b07e-4840-a1da-06f18b2ddf13'
-        map_request = f"{server_address}{ll_spn}&apikey={api_key}"
+        server_address = 'http://static-maps.yandex.ru/1.x/?'
+        ll_spn = f'll={str(sp[1])},{str(sp[0])}&spn={str(self.spn)},{str(self.spn)}'
+        map_request = f"{server_address}{ll_spn}&pt={str(sp[1])},{str(sp[0])}&l=map"
+        print(map_request)
         response = requests.get(map_request)
         if not response:
             print("Ошибка выполнения запроса:")
