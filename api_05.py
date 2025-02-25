@@ -3,7 +3,7 @@ import requests
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
-from ui_04 import Ui_MainWindow
+from ui_05 import Ui_MainWindow
 import re
 
 
@@ -37,6 +37,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                     sp.reverse()
                     self.current_coord = sp.copy()
                     if not self.camera:
+                        print(self.camera)
                         self.camera = list(map(float, sp))
                 else:
                     print('Неверный запрос')
@@ -85,13 +86,17 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                 k = 0.1
                 match event.key():
                     case Qt.Key.Key_Up:
-                        self.camera[0] += k * self.spn
+                        self.camera[0] = min(85, self.camera[0] + k * self.spn)
                     case Qt.Key.Key_Down:
-                        self.camera[0] -= k * self.spn
+                        self.camera[0] = max(-85, self.camera[0] - k * self.spn)
                     case Qt.Key.Key_Left:
-                        self.camera[1] -= k * self.spn
+                        self.camera[1] -= 2 * k * self.spn
+                        if self.camera[1] <= -180:
+                            self.camera[1] = 360 + self.camera[1]
                     case Qt.Key.Key_Right:
-                        self.camera[1] += k * self.spn
+                        self.camera[1] += 2 * k * self.spn
+                        if self.camera[1] >= 180:
+                            self.camera[1] = -180 + (self.camera[1] - 180)
                 self.show_map()
 
     def resizeEvent(self, event):
