@@ -8,24 +8,34 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(822, 426)
+
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName("horizontalLayout")
+
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
+
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+
         self.lineEdit = QtWidgets.QLineEdit(parent=self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
+
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding,
+                                           QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
+
         self.lineEdit.setSizePolicy(sizePolicy)
         self.lineEdit.setObjectName("lineEdit")
         self.horizontalLayout_2.addWidget(self.lineEdit)
+
         self.findButton = QtWidgets.QPushButton(parent=self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding,
+                                           QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.findButton.sizePolicy().hasHeightForWidth())
@@ -33,8 +43,10 @@ class Ui_MainWindow(object):
         self.findButton.setText("")
         self.findButton.setObjectName("findButton")
         self.horizontalLayout_2.addWidget(self.findButton)
+
         self.clearButton = QtWidgets.QPushButton(parent=self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding,
+                                           QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.clearButton.sizePolicy().hasHeightForWidth())
@@ -43,33 +55,43 @@ class Ui_MainWindow(object):
         self.clearButton.setDefault(False)
         self.clearButton.setFlat(False)
         self.clearButton.setObjectName("clearButton")
+
         self.horizontalLayout_2.addWidget(self.clearButton)
         self.horizontalLayout_2.setStretch(0, 10)
         self.horizontalLayout_2.setStretch(1, 1)
         self.horizontalLayout_2.setStretch(2, 1)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
+
         self.darkThemeButton = QtWidgets.QRadioButton(parent=self.centralwidget)
         self.darkThemeButton.setChecked(True)
         self.darkThemeButton.setObjectName("darkThemeButton")
+
         self.themeButtonGroup = QtWidgets.QButtonGroup(MainWindow)
         self.themeButtonGroup.setObjectName("themeButtonGroup")
         self.themeButtonGroup.addButton(self.darkThemeButton)
         self.verticalLayout.addWidget(self.darkThemeButton)
+
         self.lightThemeButton = QtWidgets.QRadioButton(parent=self.centralwidget)
         self.lightThemeButton.setObjectName("lightThemeButton")
         self.themeButtonGroup.addButton(self.lightThemeButton)
         self.verticalLayout.addWidget(self.lightThemeButton)
+
         self.mapTypeComboBox = QtWidgets.QComboBox(parent=self.centralwidget)
         self.mapTypeComboBox.setObjectName("mapTypeComboBox")
         self.mapTypeComboBox.addItem("")
         self.mapTypeComboBox.addItem("")
         self.mapTypeComboBox.addItem("")
         self.mapTypeComboBox.addItem("")
+
         self.verticalLayout.addWidget(self.mapTypeComboBox)
+
         self.postIndexCheckBox = QtWidgets.QCheckBox(parent=self.centralwidget)
         self.postIndexCheckBox.setObjectName("postIndexCheckBox")
+
         self.verticalLayout.addWidget(self.postIndexCheckBox)
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
+
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Expanding,
+                                           QtWidgets.QSizePolicy.Policy.Expanding)
         self.verticalLayout.addItem(spacerItem)
         self.verticalLayout.setStretch(0, 1)
         self.verticalLayout.setStretch(1, 1)
@@ -77,21 +99,25 @@ class Ui_MainWindow(object):
         self.verticalLayout.setStretch(3, 1)
         self.verticalLayout.setStretch(4, 1)
         self.verticalLayout.setStretch(5, 10)
+
         self.horizontalLayout.addLayout(self.verticalLayout)
+
         self.label = QtWidgets.QLabel(parent=self.centralwidget)
         self.label.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         self.label.setText("")
         self.label.setObjectName("label")
         self.horizontalLayout.addWidget(self.label)
+
         self.horizontalLayout.setStretch(0, 2)
         self.horizontalLayout.setStretch(1, 5)
+
         MainWindow.setCentralWidget(self.centralwidget)
+
         self.findButton.setText('Искать')
         self.clearButton.setText('Сброс')
-        self.findButton.clicked.connect(self.find)
-        self.clearButton.clicked.connect(self.clear)
-        self.lineEdit.returnPressed.connect(self.find)
+
         self.retranslateUi(MainWindow)
+
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
